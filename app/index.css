@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 230 35% 4%;
+    --foreground: 210 40% 98%;
+
+    --card: 230 30% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 230 30% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 199 89% 60%;
+    --primary-foreground: 230 35% 4%;
+
+    --secondary: 230 25% 14%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 230 25% 14%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 38 92% 60%;
+    --accent-foreground: 230 35% 4%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 230 25% 18%;
+    --input: 230 25% 18%;
+    --ring: 199 89% 60%;
+
+    --radius: 0.75rem;
+
+    --cosmic-glow: 199 89% 60%;
+    --cosmic-accent: 280 80% 65%;
+    --gradient-cosmic: linear-gradient(135deg, hsl(230 35% 4%) 0%, hsl(260 40% 8%) 50%, hsl(230 35% 4%) 100%);
+    --gradient-panel: linear-gradient(180deg, hsl(230 30% 10% / 0.95), hsl(230 35% 6% / 0.9));
+    --shadow-cosmic: 0 20px 60px -10px hsl(199 89% 60% / 0.3);
+    --shadow-panel: 0 10px 40px -10px hsl(0 0% 0% / 0.6);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html, body, #root {
+    @apply h-full w-full;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow: hidden;
+  }
+}
+
+@layer utilities {
+  .panel {
+    background: var(--gradient-panel);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-panel);
+    border: 1px solid hsl(var(--border));
+  }
+  .glow-text {
+    text-shadow: 0 0 20px hsl(var(--cosmic-glow) / 0.6);
+  }
+  .font-display {
+    font-family: 'Orbitron', system-ui, sans-serif;
+    letter-spacing: 0.04em;
+  }
+}
