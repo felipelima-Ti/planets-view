@@ -7,6 +7,7 @@ import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { Group } from "three";
 import { PlanetInfoPanel } from "../components/space/PlanetInfoPanel";
 import { PLANETS, MOON, type PlanetData } from "../data/planets";
+import "../components/space/style.css";
 
 // seus componentes
 import { Sun } from "../components/space/Sun";
@@ -52,10 +53,10 @@ export default function Scene() {
   const cameraInitial = useMemo<[number, number, number]>(() => [0, 35, 75], []);
 
   return (
-    <div className="w-screen h-screen relative">
-      {/* 🌌 CANVAS 3D */}
+    <div className="canvas">
+      {/* CANVAS */}
       <Canvas
-        style={{ width: "100vw", height: "90vh" }}
+        
         camera={{ position: cameraInitial, fov: 30 }}
       >
         <color attach="background" args={["#02030a"]} />
@@ -108,7 +109,7 @@ export default function Scene() {
         />
       </Canvas>
 
-      {/* 📌 PAINEL (AGORA CORRETO) */}
+      {/* PAINEL */}
       {selectedPlanet && (
         <div className="">
           <PlanetInfoPanel

@@ -28,8 +28,8 @@ const Row = ({
   label: string;
   value: string;
 }) => (
-  <div className="af">
-  <div className="ad">
+  <div className="title">
+  <div className="icon">
     <Icon className="w-3 h-3 text-black bg-black mt-0.5" />
     </div>
     <div className="flex-1">
@@ -43,8 +43,13 @@ const Row = ({
 
 export const PlanetInfoPanel = ({ planet, onClose }: Props) => {
   return (
-    <div className="fixed top-4 right-4 w-[200px] h-[200px] bg-black/80 backdrop-blur-md border border-white/10 rounded-lg shadow-xl text-white overflow-hidden z-50">
-      
+    <div className="mdiv">
+        <button
+          onClick={onClose}
+          className="exit"
+        >
+          <X className="w-3 h-3 text-white" />Sair
+        </button>
       {/* HEADER */}
       <div
         className="px-3 py-2 flex items-center justify-between border-b border-white/10"
@@ -64,18 +69,11 @@ export const PlanetInfoPanel = ({ planet, onClose }: Props) => {
             {planet.name}
           </h2>
         </div>
-
-        <button
-          onClick={onClose}
-          className="p-1 rounded-full hover:bg-white/10 transition"
-        >
-          <X className="w-3 h-3 text-white" />
-        </button>
       </div>
 
       {/* BODY */}
-      <div className="px-3 py-2 h-[150px] overflow-y-auto">
-        <p className="text-[10px] text-white/70 mb-2 leading-relaxed">
+      <div className="">
+        <p className="description">
           {planet.description}
         </p>
 

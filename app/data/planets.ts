@@ -209,7 +209,7 @@ export const PLANETS: PlanetData[] = [
   speed: 0.05,
   rotationSpeed: 0.0015,
    axialTilt: 0.49,
-  type: "Estrela",
+  type: "Estrela Sol",
   diameter: "1.392.700 km",
   distance: "Centro do sistema",
   day: "25–35 dias",

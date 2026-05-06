@@ -1,7 +1,85 @@
-.ad{
+.icon{
     margin-left: 5rem;
     color: rgb(7, 7, 7);
 }
-.af{
+.title{
     margin-left: 5rem;
+}
+.description{
+   margin-left: 5rem;
+}
+.canvas{
+    width: 99vw;
+    height: 99vh;
+}
+.exit {
+    display: flex;
+}
+.mdiv {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+
+  width: 700;
+  height: 750px;
+
+  background: rgba(0, 0, 0, 0.8);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 0.5rem;
+
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+              0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  color: white;
+
+  overflow: hidden;
+
+  z-index: 50;
+}
+@media (max-width: 768px) {
+  .mdiv {
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 100%;
+
+    /* altura inicial pequena */
+    height: 120px;
+
+    /* altura máxima ao rolar */
+    max-height: 80vh;
+
+    overflow-y: auto;
+
+    top: auto;
+
+    border-radius: 20px 20px 0 0;
+
+    transition: height 0.3s ease;
+  }
+
+  /* quando o usuário tocar/hover/focar */
+  .mdiv:hover,
+  .mdiv:active,
+  .mdiv:focus-within {
+    height: 80vh;
+  }
+
+  /* scrollbar */
+  .mdiv::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .mdiv::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 10px;
+  }
 }
