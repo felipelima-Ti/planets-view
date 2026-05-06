@@ -17,7 +17,7 @@ export const Starfield = ({ count = 4000, radius = 300 }: { count?: number; radi
         r * Math.cos(phi),
       );
       const t = Math.random();
-      // mostly white, some blue, some warm
+      // varia cor para dar mais vida (branco, azul claro, amarelo claro)
       if (t < 0.7) colors.push(1, 1, 1);
       else if (t < 0.85) colors.push(0.7, 0.85, 1);
       else colors.push(1, 0.85, 0.7);

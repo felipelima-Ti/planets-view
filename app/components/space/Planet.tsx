@@ -16,7 +16,7 @@ import { Moon } from "./Moon";
 
 type Props = {
   data: PlanetData;
-  onClick: (id: string) => void; // 🔥 corrigido
+  onClick: (id: string) => void; 
   onHover: (id: string | null) => void;
   paused: boolean;
   showMoon: boolean;
@@ -42,7 +42,7 @@ export const Planet = ({
 
   const startAngle = useMemo(() => Math.random() * Math.PI * 2, []);
 
-  // ✅ registra ref UMA VEZ (não por frame)
+  // registra ref uma vez quando o componente é montado
   useEffect(() => {
     if (registerRef && orbitRef.current) {
       registerRef(data.id, orbitRef.current);
@@ -99,7 +99,7 @@ export const Planet = ({
               ref={planetRef}
               onClick={(e) => {
                 e.stopPropagation();
-                onClick(data.id); // 🔥 corrigido
+                onClick(data.id); 
               }}
               onPointerOver={(e) => {
                 e.stopPropagation();
@@ -156,7 +156,7 @@ export const Planet = ({
             {data.id === "earth" && showMoon && (
               <Moon
                 paused={paused}
-                onClick={(id) => onClick(id)} // 🔥 mantém padrão
+                onClick={(id) => onClick(id)} 
                 onHover={onHover}
               />
             )}

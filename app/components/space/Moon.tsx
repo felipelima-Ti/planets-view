@@ -20,7 +20,7 @@ export const Moon = ({ paused, onClick, onHover }: Props) => {
     if (orbitRef.current) orbitRef.current.rotation.y += delta * MOON.speed;
     if (meshRef.current) meshRef.current.rotation.y += MOON.rotationSpeed;
   });
-
+// component para a lua filho do planeta terra 
   return (
     <group ref={orbitRef}>
       <mesh

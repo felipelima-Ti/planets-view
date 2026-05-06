@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { TextureLoader, Mesh, AdditiveBlending, BackSide } from "three";
 import { SUN } from "../../data/planets";
-
+// componente para o sol, com camadas de glow para dar um efeito mais bonito
 export const Sun = () => {
   const ref = useRef<Mesh>(null);
   const tex = useLoader(TextureLoader, SUN.textureUrl);

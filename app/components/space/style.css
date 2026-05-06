@@ -1,6 +1,9 @@
-.icon{
-    margin-left: 5rem;
-    color: rgb(7, 7, 7);
+.icon > * {
+  margin-top: 20px;
+}
+
+.icon > *:last-child {
+  margin-bottom: 0;
 }
 .title{
     margin-left: 5rem;
@@ -82,4 +85,7 @@
     background: rgba(255,255,255,0.3);
     border-radius: 10px;
   }
+}
+.name{
+  padding-left: 10px;
 }

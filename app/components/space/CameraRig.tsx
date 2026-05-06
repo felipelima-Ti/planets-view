@@ -22,16 +22,16 @@ export const CameraRig = ({ targetId, refs, controlsRef, getDistance }: Props) =
     const grp = refs.current[targetId];
     if (!grp) return;
 
-    // Get world position of the planet (children[0] holds the offset position for orbiting groups)
+    // pega posição do planeta (ou sol) para olhar
     if (targetId === "sun") {
       lookAt.current.set(0, 0, 0);
     } else {
-      // The orbit group contains a position-shifted child; find first child mesh world pos
+      // a orbit é no grupo, então pega a posição do filho (planeta) para olhar
       const child = grp.children[0];
       if (child) child.getWorldPosition(lookAt.current);
       else grp.getWorldPosition(lookAt.current);
     }
-
+    // calcula direção e posição desejada da câmera
     const distance = getDistance(targetId);
 
     dir.current.copy(camera.position).sub(controlsRef.current.target);

@@ -9,17 +9,20 @@ import { PlanetInfoPanel } from "../components/space/PlanetInfoPanel";
 import { PLANETS, MOON, type PlanetData } from "../data/planets";
 import "../components/space/style.css";
 
-// seus componentes
+// componentes
 import { Sun } from "../components/space/Sun";
 import { Planet } from "../components/space/Planet";
 import { Starfield } from "../components/space/Stars";
 import { CameraRig } from "../components/space/CameraRig";
+import { toast } from "sonner";
 
 export default function Scene() {
   const [paused, setPaused] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
-  const [moonUnlocked, setMoonUnlocked] = useState(false);
+
+  // Lua sempre desbloqueada
+  const moonUnlocked = true;
 
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
   const groupRefs = useRef<Record<string, Group | null>>({});
@@ -36,6 +39,12 @@ export default function Scene() {
 
   const handleSelect = (id: string) => {
     setSelected(id);
+
+    if (id === "moon") {
+      toast.success("🌙 Você encontrou a Lua!", {
+        description: "Easter egg desbloqueado.",
+      });
+    }
   };
 
   const handleClosePanel = () => {
@@ -47,18 +56,20 @@ export default function Scene() {
   const distanceFor = (id: string) => {
     const p = PLANETS.find((x) => x.id === id);
     if (!p) return 10;
+
     return Math.max(p.radius * 4.5, 4);
   };
 
-  const cameraInitial = useMemo<[number, number, number]>(() => [0, 35, 75], []);
+  // distância inicial da câmera
+  const cameraInitial = useMemo<[number, number, number]>(
+    () => [0, 35, 75],
+    []
+  );
 
   return (
     <div className="canvas">
       {/* CANVAS */}
-      <Canvas
-        
-        camera={{ position: cameraInitial, fov: 30 }}
-      >
+      <Canvas camera={{ position: cameraInitial, fov: 30 }}>
         <color attach="background" args={["#02030a"]} />
         <ambientLight intensity={0.1} />
 
@@ -85,7 +96,7 @@ export default function Scene() {
               key={p.id}
               data={p}
               paused={paused}
-              showMoon={moonUnlocked && p.id === "earth"}
+              showMoon={p.id === "earth"} // Lua sempre aparece na Terra
               onHover={setHovered}
               onClick={(id) => handleSelect(id)}
               registerRef={registerRef}
@@ -111,7 +122,7 @@ export default function Scene() {
 
       {/* PAINEL */}
       {selectedPlanet && (
-        <div className="">
+        <div>
           <PlanetInfoPanel
             planet={selectedPlanet}
             onClose={handleClosePanel}
