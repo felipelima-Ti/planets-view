@@ -5,8 +5,10 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Html } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { Group } from "three";
+
 import { PlanetInfoPanel } from "../components/space/PlanetInfoPanel";
 import { PLANETS, MOON, type PlanetData } from "../data/planets";
+
 import "../components/space/style.css";
 
 // componentes
@@ -14,6 +16,7 @@ import { Sun } from "../components/space/Sun";
 import { Planet } from "../components/space/Planet";
 import { Starfield } from "../components/space/Stars";
 import { CameraRig } from "../components/space/CameraRig";
+
 import { toast } from "sonner";
 
 export default function Scene() {
@@ -21,46 +24,56 @@ export default function Scene() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
 
-  // Lua sempre desbloqueada
-  const moonUnlocked = true;
-
+  // refs
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
   const groupRefs = useRef<Record<string, Group | null>>({});
 
+  // todos os corpos
   const ALL_BODIES: Record<string, PlanetData> = {
     ...Object.fromEntries(PLANETS.map((p) => [p.id, p])),
     moon: MOON as PlanetData,
   };
 
-  // registra refs dos planetas
+  // registrar refs
   const registerRef = (id: string, g: Group | null) => {
     groupRefs.current[id] = g;
   };
 
+  // selecionar planeta/lua
   const handleSelect = (id: string) => {
     setSelected(id);
 
     if (id === "moon") {
       toast.success("🌙 Você encontrou a Lua!", {
-        description: "Easter egg desbloqueado.",
+        description:
+          "A Lua é o único satélite natural da Terra e influencia as marés e a vida na Terra.",
       });
     }
   };
 
+  // fechar painel
   const handleClosePanel = () => {
     setSelected(null);
   };
 
+  // planeta selecionado
   const selectedPlanet = selected ? ALL_BODIES[selected] : null;
 
+  // distância da câmera
   const distanceFor = (id: string) => {
+    // zoom especial para lua
+    if (id === "moon") return 4.5;
+    // zoom no sol
+    if (id === "sun") return 18;
+
     const p = PLANETS.find((x) => x.id === id);
+
     if (!p) return 10;
 
     return Math.max(p.radius * 4.5, 4);
   };
 
-  // distância inicial da câmera
+  // posição inicial câmera
   const cameraInitial = useMemo<[number, number, number]>(
     () => [0, 35, 75],
     []
@@ -68,41 +81,50 @@ export default function Scene() {
 
   return (
     <div className="canvas">
-      {/* CANVAS */}
       <Canvas camera={{ position: cameraInitial, fov: 30 }}>
+        {/* fundo */}
         <color attach="background" args={["#02030a"]} />
+
+        {/* luz */}
         <ambientLight intensity={0.1} />
 
         <Suspense
           fallback={
             <Html center>
-              <div className="text-white">Carregando universo...</div>
+              <div className="text-white">
+                Carregando universo...
+              </div>
             </Html>
           }
         >
+          {/* estrelas */}
           <Starfield />
 
+          {/* SOL */}
           <group
+            ref={(g) => registerRef("sun", g)}
             onClick={(e) => {
               e.stopPropagation();
-              setSelected("sun");
+              handleSelect("sun");
             }}
           >
             <Sun />
           </group>
 
-          {PLANETS.map((p) => (
+          {/* PLANETAS */}
+          {PLANETS.map((planet) => (
             <Planet
-              key={p.id}
-              data={p}
+              key={planet.id}
+              data={planet}
               paused={paused}
-              showMoon={p.id === "earth"} // Lua sempre aparece na Terra
+              showMoon={planet.id === "earth"}
               onHover={setHovered}
-              onClick={(id) => handleSelect(id)}
+              onClick={handleSelect}
               registerRef={registerRef}
             />
           ))}
 
+          {/* CAMERA */}
           <CameraRig
             targetId={selected}
             refs={groupRefs}
@@ -111,23 +133,22 @@ export default function Scene() {
           />
         </Suspense>
 
+        {/* CONTROLES */}
         <OrbitControls
           ref={controlsRef as any}
           enablePan={false}
-          minDistance={3}
-          maxDistance={250}
           enableDamping
+          minDistance={2}
+          maxDistance={250}
         />
       </Canvas>
 
-      {/* PAINEL */}
+      {/* painel informações */}
       {selectedPlanet && (
-        <div>
-          <PlanetInfoPanel
-            planet={selectedPlanet}
-            onClose={handleClosePanel}
-          />
-        </div>
+        <PlanetInfoPanel
+          planet={selectedPlanet}
+          onClose={handleClosePanel}
+        />
       )}
     </div>
   );
