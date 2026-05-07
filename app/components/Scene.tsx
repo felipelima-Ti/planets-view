@@ -63,13 +63,8 @@ export default function Scene() {
   const distanceFor = (id: string) => {
     // zoom especial para lua
     if (id === "moon") return 4.5;
-    // zoom no sol
-    if (id === "sun") return 18;
-
     const p = PLANETS.find((x) => x.id === id);
-
     if (!p) return 10;
-
     return Math.max(p.radius * 4.5, 4);
   };
 
