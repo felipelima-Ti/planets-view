@@ -22,6 +22,7 @@ export type PlanetData = {
 
 const TEX = "https://raw.githubusercontent.com/jeromeetienne/threex.planets/master/images";
 
+
 export const SUN = {
   id: "sun",
   name: "Sol",
@@ -226,7 +227,7 @@ export const PLANETS: PlanetData[] = [
   textureUrl: `${TEX}/moonmap1k.jpg`,
   radius: 0.50,
   orbit: 15.2,
-  speed: 1.2,
+  speed: 0,
   rotationSpeed: 0.004,
   axialTilt: 0.01,
   type: "Satélite natural da Terra",
@@ -243,6 +244,28 @@ export const PLANETS: PlanetData[] = [
 }
   
 ];
+
+export const BLACK_HOLE: PlanetData = {
+  id: "blackhole",
+  name: "Buraco Negro Sagittarius A*",
+  textureUrl: "",
+  radius: 2,
+  orbit: 205,
+  speed: 0.02,
+  rotationSpeed: 0.001,
+  axialTilt: 30,
+  type: "Buraco negro supermassivo",
+  diameter: "~24 milhões km (horizonte de eventos)",
+  distance: "~26.000 anos-luz da Terra",
+  day: "Rotação extrema próxima à velocidade da luz",
+  year: "Orbita o centro galáctico",
+  moons: "0",
+  temperature: "Disco de acreção: milhões de °C",
+  gravity: "Escape > velocidade da luz",
+  color: "20 90% 55%",
+  description:
+    "Um buraco negro é uma região do espaço-tempo onde a gravidade é tão intensa que nada — nem mesmo a luz — consegue escapar. Sagittarius A* é o buraco negro supermassivo no centro da Via Láctea, com massa equivalente a cerca de 4 milhões de sóis. Em torno do horizonte de eventos forma-se um disco de acreção brilhante de gás superaquecido e um anel de fótons curvado pela gravidade.",
+};
 
 export const MOON = {
   id: "moon",
@@ -264,4 +287,3 @@ export const MOON = {
   description:
     " A Lua é o único satélite natural da Terra e o quinto maior do Sistema Solar. Influencia as marés e estabiliza o eixo de rotação do nosso planeta.",
 };
-

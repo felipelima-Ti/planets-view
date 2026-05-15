@@ -5,9 +5,10 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Html } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { Group } from "three";
-
+import { BlackHole } from "../components/space/BlackHole";
 import { PlanetInfoPanel } from "../components/space/PlanetInfoPanel";
-import { PLANETS, MOON, type PlanetData } from "../data/planets";
+import { PLANETS, MOON, BLACK_HOLE, type PlanetData } from "../data/planets";
+
 
 import "../components/space/style.css";
 
@@ -32,6 +33,7 @@ export default function Scene() {
   const ALL_BODIES: Record<string, PlanetData> = {
     ...Object.fromEntries(PLANETS.map((p) => [p.id, p])),
     moon: MOON as PlanetData,
+     blackhole: BLACK_HOLE,
   };
 
   // registrar refs
@@ -63,6 +65,7 @@ export default function Scene() {
   const distanceFor = (id: string) => {
     // zoom especial para lua
     if (id === "moon") return 4.5;
+    if(id==="blackhole") return 90;
     const p = PLANETS.find((x) => x.id === id);
     if (!p) return 10;
     return Math.max(p.radius * 4.5, 4);
@@ -118,7 +121,18 @@ export default function Scene() {
               registerRef={registerRef}
             />
           ))}
-
+          {/* BURACO NEGRO */}
+          <BlackHole
+            position={[BLACK_HOLE.orbit, 0, -BLACK_HOLE.orbit *0.2]}
+            scale={BLACK_HOLE.radius * 5}
+            groupRef={(g) => registerRef("blackhole", g)}
+            onPointerOver={() => setHovered("blackhole")}
+            onPointerOut={() => setHovered(null)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleSelect("blackhole");
+            }}
+          />
           {/* CAMERA */}
           <CameraRig
             targetId={selected}
