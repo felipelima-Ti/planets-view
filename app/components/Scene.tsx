@@ -123,7 +123,7 @@ export default function Scene() {
           ))}
           {/* BURACO NEGRO */}
           <BlackHole
-            position={[BLACK_HOLE.orbit, 0, -BLACK_HOLE.orbit *0.2]}
+            position={[BLACK_HOLE.orbit, 0, -BLACK_HOLE.orbit *3.6]}
             scale={BLACK_HOLE.radius * 5}
             groupRef={(g) => registerRef("blackhole", g)}
             onPointerOver={() => setHovered("blackhole")}
