@@ -250,7 +250,7 @@ export const BLACK_HOLE: PlanetData = {
   name: "Buraco Negro Sagittarius A*",
   textureUrl: "",
   radius: 2,
-  orbit: 205,
+  orbit: 250,
   speed: 0.02,
   rotationSpeed: 0.001,
   axialTilt: 30,
